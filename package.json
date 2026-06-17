@@ -1,0 +1,13 @@
+{
+  "name": "workout-routine-generator",
+  "version": "1.0.0",
+  "description": "Workout Routine Generator with Sleek Gym Theme",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}

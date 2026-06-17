@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFlow - 나만의 맞춤형 운동 루틴 생성기</title>
+    <meta name="description" content="요일과 운동 부위를 선택하여 나만의 효율적인 헬스 루틴을 자동으로 생성하고 추천 운동을 확인하세요.">
+    <!-- Google Fonts: Outfit (헤더용), Inter (본문용) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 배경 데코 요소 -->
+        <div class="bg-glow bg-glow-1"></div>
+        <div class="bg-glow bg-glow-2"></div>
+
+        <header class="app-header">
+            <div class="logo">
+                <i data-lucide="dumbbell" class="logo-icon"></i>
+                <span class="logo-text">Fit<span class="highlight">Flow</span></span>
+            </div>
+            <p class="subtitle">스마트한 운동 루틴 설계의 시작</p>
+        </header>
+
+        <main class="app-main">
+            <!-- 입력 폼 영역 -->
+            <section class="form-card card">
+                <h2 class="card-title"><i data-lucide="sliders" class="title-icon"></i> 루틴 설정</h2>
+                
+                <form id="routine-form" onsubmit="event.preventDefault();">
+                    <!-- 1. 사용자 이름 입력 -->
+                    <div class="form-group">
+                        <label for="username" class="form-label">
+                            <i data-lucide="user" class="label-icon"></i> 이름 입력
+                        </label>
+                        <input type="text" id="username" class="form-input" placeholder="예: 홍길동" required autocomplete="off">
+                    </div>
+
+                    <!-- 2. 운동 부위 선택 -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i data-lucide="target" class="label-icon"></i> 운동 부위 선택 (중복 가능)
+                        </label>
+                        <div class="chip-grid">
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-part" value="가슴">
+                                <span class="chip-label">가슴</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-part" value="등">
+                                <span class="chip-label">등</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-part" value="어깨">
+                                <span class="chip-label">어깨</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-part" value="하체">
+                                <span class="chip-label">하체</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-part" value="팔">
+                                <span class="chip-label">팔</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 3. 운동 요일 선택 -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i data-lucide="calendar" class="label-icon"></i> 운동 요일 선택 (중복 가능)
+                        </label>
+                        <div class="chip-grid week-grid">
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-day" value="월">
+                                <span class="chip-label">월</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-day" value="화">
+                                <span class="chip-label">화</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-day" value="수">
+                                <span class="chip-label">수</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-day" value="목">
+                                <span class="chip-label">목</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-day" value="금">
+                                <span class="chip-label">금</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-day" value="토">
+                                <span class="chip-label">토</span>
+                            </label>
+                            <label class="chip-checkbox">
+                                <input type="checkbox" name="workout-day" value="일">
+                                <span class="chip-label">일</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 4. 루틴 생성 버튼 -->
+                    <button type="button" id="btn-generate" class="btn btn-primary">
+                        <span>루틴 생성하기</span>
+                        <i data-lucide="sparkles" class="btn-icon"></i>
+                    </button>
+                </form>
+            </section>
+
+            <!-- 결과 출력 영역 -->
+            <section class="result-card card">
+                <h2 class="card-title">
+                    <i data-lucide="calendar-check" class="title-icon"></i> 
+                    <span id="result-title">생성된 루틴</span>
+                </h2>
+                
+                <!-- 비어있을 때 메시지 -->
+                <div id="result-placeholder" class="placeholder-container">
+                    <i data-lucide="clipboard-list" class="placeholder-icon"></i>
+                    <p class="placeholder-text">설정을 완료하고 루틴 생성 버튼을 눌러주세요.</p>
+                </div>
+
+                <!-- 결과 표 -->
+                <div id="result-table-container" class="table-container hidden">
+                    <table class="routine-table">
+                        <thead>
+                            <tr>
+                                <th>요일</th>
+                                <th>운동부위</th>
+                            </tr>
+                        </thead>
+                        <tbody id="routine-tbody">
+                            <!-- JS를 통해 동적 생성 -->
+                        </tbody>
+                    </table>
+                    <p class="table-info-tip">
+                        <i data-lucide="info" class="info-icon"></i> 
+                        운동 부위를 클릭하면 추천 운동 5가지를 볼 수 있습니다.
+                    </p>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="app-footer">
+            <p>&copy; 2026 FitFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- 추천 운동 모달 팝업 -->
+    <div id="exercise-modal" class="modal hidden">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="btn-modal-close" aria-label="닫기">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-badge"><i data-lucide="target" class="badge-icon"></i> <span id="modal-part-name">가슴</span></div>
+                <h3 class="modal-title">추천 운동 리스트</h3>
+            </div>
+            <div class="modal-body">
+                <ul class="exercise-list" id="exercise-list">
+                    <!-- JS를 통해 동적 생성 -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트 연결 -->
+    <script src="app.js"></script>
+</body>
+</html>

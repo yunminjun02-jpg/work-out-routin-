@@ -1,0 +1,710 @@
+/* ==========================================
+   FitFlow - CSS 스타일 정의 (깔끔한 헬스 앱 테마)
+   ========================================== */
+
+/* 1. CSS 변수 및 초기화 */
+:root {
+    --bg-color: #080c14;
+    --card-bg: rgba(17, 24, 39, 0.75);
+    --card-border: rgba(255, 255, 255, 0.06);
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --primary: #10b981; /* 네온 에메랄드 */
+    --primary-glow: rgba(16, 185, 129, 0.35);
+    --secondary: #06b6d4; /* 사이언 */
+    --accent-gradient: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+    --danger: #ef4444;
+    --font-main: 'Inter', sans-serif;
+    --font-heading: 'Outfit', sans-serif;
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+    
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 2. 배경 데코 레이어 (네온 글로우 효과) */
+.bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(140px);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+.bg-glow-1 {
+    top: -10%;
+    left: -10%;
+    background: var(--primary);
+}
+
+.bg-glow-2 {
+    bottom: -10%;
+    right: -10%;
+    background: var(--secondary);
+}
+
+/* 3. 앱 컨테이너 */
+.app-container {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+
+/* 4. 헤더 */
+.app-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.logo-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--primary);
+    filter: drop-shadow(0 0 8px var(--primary-glow));
+    animation: pulse 3s infinite alternate;
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
+/* 5. 메인 레이아웃 (2칼럼 그리드) */
+.app-main {
+    display: grid;
+    grid-template-columns: 1.2fr 1.8fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* 6. 공통 카드 스타일 (글래스모피즘) */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-lg);
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+}
+
+.card:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.75rem;
+}
+
+.title-icon {
+    color: var(--primary);
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* 7. 입력 폼 컴포넌트 */
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.label-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.form-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+
+/* 칩 스타일의 체크박스 그리드 */
+.chip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75rem;
+}
+
+.week-grid {
+    grid-template-columns: repeat(7, 1fr); /* 7일 고정 */
+}
+
+.chip-checkbox {
+    cursor: pointer;
+}
+
+.chip-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.chip-checkbox .chip-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    user-select: none;
+}
+
+.chip-checkbox:hover .chip-label {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.chip-checkbox input[type="checkbox"]:checked + .chip-label {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+
+/* 생성 버튼 */
+.btn {
+    width: 100%;
+    height: 52px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: #0b0f19;
+    box-shadow: 0 4px 18px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
+    filter: brightness(1.1);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+/* 8. 결과 프리뷰 & 테이블 영역 */
+.result-card {
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 비어있을 때 플레이스홀더 */
+.placeholder-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.placeholder-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    stroke-width: 1.2px;
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.placeholder-text {
+    font-size: 1.05rem;
+    max-width: 300px;
+}
+
+/* 결과 테이블 */
+.table-container {
+    animation: fadeIn var(--transition-normal) forwards;
+}
+
+.routine-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* 행 간의 여백 */
+    margin-top: -10px;
+}
+
+.routine-table th {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    text-align: left;
+    padding: 0.5rem 1.25rem;
+    letter-spacing: 0.05em;
+}
+
+.routine-table tbody tr {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-fast);
+}
+
+.routine-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+}
+
+.routine-table td {
+    padding: 1rem 1.25rem;
+    font-size: 1.05rem;
+}
+
+.routine-table td:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    width: 25%;
+}
+
+.routine-table td:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* 테이블의 부위 항목 칩 */
+.table-part-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.table-part-chip:hover {
+    background: var(--accent-gradient);
+    color: #0b0f19;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+/* 휴식 표시 */
+.rest-text {
+    color: rgba(255, 255, 255, 0.25);
+    font-style: italic;
+    font-size: 0.95rem;
+}
+
+.table-info-tip {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.info-icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--secondary);
+}
+
+/* 9. 푸터 */
+.app-footer {
+    text-align: center;
+    margin-top: auto;
+    padding-top: 2rem;
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 0.85rem;
+}
+
+/* 10. 모달 레이아웃 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 8, 16, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    position: relative;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    width: 95%;
+    max-width: 480px;
+    padding: 2.25rem 1.75rem;
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(16, 185, 129, 0.1);
+    z-index: 1001;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: modalShow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.modal-header {
+    margin-bottom: 1.5rem;
+    padding-right: 2rem;
+}
+
+.modal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 20px;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.badge-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+}
+
+.modal-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* 추천 운동 리스트 (아코디언 구조화) */
+.exercise-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 55vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* 스크롤바 디자인 */
+.exercise-list::-webkit-scrollbar {
+    width: 4px;
+}
+.exercise-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+.exercise-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.exercise-item {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    transition: all var(--transition-fast);
+    opacity: 0;
+    transform: translateY(10px);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.exercise-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.exercise-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 1.25rem;
+    width: 100%;
+}
+
+.exercise-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.exercise-num {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background: rgba(6, 182, 212, 0.1);
+    border-radius: 50%;
+    color: var(--secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.exercise-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.exercise-chevron {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--text-secondary);
+    transition: transform var(--transition-normal);
+}
+
+/* 아코디언 본문 설명글 영역 */
+.exercise-desc {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal) cubic-bezier(0, 1, 0, 1), opacity var(--transition-normal);
+    opacity: 0;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.exercise-desc-inner {
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* 아코디언 활성화 상태 */
+.exercise-item.active {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(16, 185, 129, 0.25);
+}
+
+.exercise-item.active .exercise-desc {
+    max-height: 200px; /* 상세 텍스트가 표시될 넉넉한 값 */
+    opacity: 1;
+    transition: max-height var(--transition-normal) cubic-bezier(1, 0, 1, 0), opacity var(--transition-normal);
+}
+
+/* 유틸리티 */
+.hidden {
+    display: none !important;
+}
+
+/* 11. 애니메이션 */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalShow {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 모달 리스트 순차 등장 애니메이션 */
+@keyframes itemSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.exercise-item.show {
+    animation: itemSlideIn 0.3s ease forwards;
+}
+
+/* 12. 반응형 미디어 쿼리 */
+@media (max-width: 968px) {
+    .app-main {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-card {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .app-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .logo-text {
+        font-size: 2rem;
+    }
+    
+    .card {
+        padding: 1.5rem 1.25rem;
+    }
+    
+    .chip-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .week-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
+    
+    .routine-table th, 
+    .routine-table td {
+        padding: 0.75rem 0.85rem;
+    }
+    
+    .routine-table td:first-child {
+        width: 30%;
+    }
+}
